@@ -8,7 +8,8 @@ namespace Studing_Linq
     {
         static void Main(string[] args)
         {
-            TakeWhile();
+            //TakeWhile();
+            Distinct();
         }
 
         /// <summary>
@@ -28,6 +29,17 @@ namespace Studing_Linq
             query.ToList().ForEach(item => Console.WriteLine(item));
             Console.WriteLine();
             fruits.ToList().ForEach(item => Console.WriteLine(item));
+        }
+
+        static void Distinct()
+        {
+            IEnumerable<int> set = new int[] { 1, 1, 1, 2, 3};
+
+            Console.WriteLine("before");
+            set.ToList().ForEach(item => Console.WriteLine(item));
+
+            Console.WriteLine("after");
+            set.Distinct().ToList().ForEach(item => Console.WriteLine(item)); // 1, 2, 3
         }
     }
 }
