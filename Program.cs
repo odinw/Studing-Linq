@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,21 +7,90 @@ namespace Studing_Linq
 {
     class Member
     {
-        public long uid;
-        public string account;
+        public long number;
+        public string name;
     }
 
     class Program
     {
         static void Main(string[] args)
         {
+            NullConditionalOperator();
+            //Any();
+            //DynamicType();
+            //DistinctClass();
             //IEnumrableConcat();
-            Class_Where_Select_Member();
+            //Class_Where_Select_Member();
             //DateTimeOffset_Get_Offset();
             //Set();
             //Fail_Where_Set();
             //Distinct();
             //TakeWhile();
+        }
+
+        /// <summary>
+        /// 空條件運算符 null conditional operator  ：以 List?ToDo 取代 if (List == null) ToDo
+        /// ref :
+        /// https://docs.microsoft.com/en-us/archive/msdn-magazine/2014/october/csharp-the-new-and-improved-csharp-6-0#null-conditional-operator
+        /// https://stackoverflow.com/questions/24390005/checking-for-empty-or-null-liststring
+        /// </summary>
+        static void NullConditionalOperator()
+        {
+            List<int> SomethingList = new List<int> { 1, 2, 3 };
+            List<int> ZoreList = new List<int>();
+            List<int> nullList = null;
+
+            Console.WriteLine($"nullList?.Any() ?? false = {nullList?.Any() ?? true}");
+            Console.WriteLine(nullList?.Count ?? -1); // if nullList is null, return -1. Testing: -1
+            Console.WriteLine(ZoreList?.Count ?? -1); // Testing: 0
+            Console.WriteLine(SomethingList?.Count ?? -1); // Testing: 3
+
+            // Testing: false
+            if (nullList?.Any() ?? false)
+                Console.WriteLine(true);
+            else
+                Console.WriteLine(false);
+        }
+
+        /// <summary>
+        /// 是否有元素
+        /// </summary>
+        static void Any()
+        {
+            List<int> SomethingList = new List<int> { 1, 2, 3};
+            List<int> ZoreList = new List<int>();
+            List<int> nullList = null;
+
+            Console.WriteLine(SomethingList.Any()); // true
+            Console.WriteLine(ZoreList.Any()); // false
+            //Console.WriteLine(nullList.Any()); // System.ArgumentNullException: 'Value cannot be null. '
+            Console.WriteLine(nullList?.Any()); // 沒東西，變成只是分行
+        }
+
+        /// <summary>
+        /// 研究 dynamic 型別，設定初始值並傳給 ShowDynamic() 使用
+        /// </summary>
+        static void DynamicType()
+        {
+            dynamic body = new
+            {
+                nickname = "Jack",
+                age = 20
+            };
+
+            //body.Add( new { tall = 175 }); // Microsoft.CSharp.RuntimeBinder.RuntimeBinderException: ''<>f__AnonymousType0<string,int>' does not contain a definition for 'Add''
+
+            ShowDynamic(body);
+        }
+
+        /// <summary>
+        /// 顯示 dynamic 值
+        /// </summary>
+        /// <param name="body"></param>
+        static void ShowDynamic(dynamic body)
+        {
+            Console.WriteLine(body.nickname);
+            Console.WriteLine(body.age);
         }
 
         /// <summary>
@@ -30,23 +100,23 @@ namespace Studing_Linq
         {
             IEnumerable<Member> members1 = new List<Member>
             {
-                new Member { uid = 1, account = "A" },
-                new Member { uid = 2, account = "B" },
+                new Member { number = 1, name = "A" },
+                new Member { number = 2, name = "B" },
             };
 
             IEnumerable<Member> members2 = new List<Member>
             {
-                new Member { uid = 3, account = "C" },
+                new Member { number = 3, name = "C" },
             };
 
             var member3 = members1.Concat(members2);
 
             Console.WriteLine("members1");
-            members1.ToList().ForEach(x => Console.WriteLine(x.uid));
+            members1.ToList().ForEach(x => Console.WriteLine(x.number));
             Console.WriteLine("members2");
-            members2.ToList().ForEach(x => Console.WriteLine(x.uid));
+            members2.ToList().ForEach(x => Console.WriteLine(x.number));
             Console.WriteLine("members3");
-            member3.ToList().ForEach(x => Console.WriteLine(x.uid));
+            member3.ToList().ForEach(x => Console.WriteLine(x.number));
         }
 
         /// <summary>
@@ -56,13 +126,13 @@ namespace Studing_Linq
         {
             IEnumerable<Member> members = new List<Member>
             {
-                new Member { uid = 1, account = "A" },
-                new Member { uid = 2, account = "B" },
-                new Member { uid = 3, account = "C" },
+                new Member { number = 1, name = "A" },
+                new Member { number = 2, name = "B" },
+                new Member { number = 3, name = "C" },
             };
 
             Console.WriteLine("Before members");
-            members.ToList().ForEach(x => Console.WriteLine(x.uid));
+            members.ToList().ForEach(x => Console.WriteLine(x.number));
 
             // 1. members 值不會改變
             //var updateB = members.Where(member => member.account == "B").Select(member => { member.uid = 5; return member; });
@@ -92,12 +162,12 @@ namespace Studing_Linq
             // 4. 用把自己指派為新值，就會改變 members
             members = members.Where(member =>
             {
-                if (member.account == "B")
-                    member.uid = 5;
+                if (member.name == "B")
+                    member.number = 5;
                 return true;
             });
             Console.WriteLine("After members");
-            members.ToList().ForEach(x => Console.WriteLine(x.uid)); // 變成 1, 5, 3
+            members.ToList().ForEach(x => Console.WriteLine(x.number)); // 變成 1, 5, 3
         }
 
         /// <summary>
@@ -159,6 +229,29 @@ namespace Studing_Linq
 
             Console.WriteLine("after");
             data.Distinct().ToList().ForEach(item => Console.WriteLine(item)); // 1, 2, 3
+        }
+
+        // ing
+        static void DistinctClass()
+        {
+            IEnumerable<Member> data = new List<Member>
+            {
+                new Member { number = 1, name = "A" },
+                new Member { number = 2, name = "B" },
+                new Member { number = 2, name = "C" },
+                new Member { number = 4, name = "C" },
+            };
+
+
+
+
+            Console.WriteLine("before");
+            data.ToList().ForEach(item => Console.WriteLine(item.number));
+
+            Console.WriteLine("after");
+            var a = data.GroupBy(x => x.number);//.ToList().ForEach(item => Console.WriteLine(item.number));
+            var json = JsonConvert.SerializeObject(a, Formatting.Indented);
+            Console.WriteLine(json);
         }
 
         /// <summary>
