@@ -231,6 +231,18 @@ namespace Studing_Linq
             data.Distinct().ToList().ForEach(item => Console.WriteLine(item)); // 1, 2, 3
         }
 
+        /// <summary>
+        /// Take (from the front) & TakeLast
+        /// </summary>
+        static void Take_TakeLast()
+        {
+            IEnumerable<int> list = new List<int> { 1, 2, 3, 4, 5 };
+            var top = list.Take(2);
+            var last = list.TakeLast(2);
+            top.ToList().ForEach(v => Console.WriteLine($"top {v}"));
+            last.ToList().ForEach(v => Console.WriteLine($"last {v}"));
+        }
+
         // ing
         static void DistinctClass()
         {
@@ -272,5 +284,6 @@ namespace Studing_Linq
             Console.WriteLine();
             fruits.ToList().ForEach(item => Console.WriteLine(item));
         }
+
     }
 }
