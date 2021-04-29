@@ -15,7 +15,7 @@ namespace Studing_Linq
     {
         static void Main(string[] args)
         {
-            NullConditionalOperator();
+            //NullConditionalOperator();
             //Any();
             //DynamicType();
             //DistinctClass();
@@ -26,6 +26,7 @@ namespace Studing_Linq
             //Fail_Where_Set();
             //Distinct();
             //TakeWhile();
+            First_Last();
         }
 
         /// <summary>
@@ -241,6 +242,18 @@ namespace Studing_Linq
             var last = list.TakeLast(2);
             top.ToList().ForEach(v => Console.WriteLine($"top {v}"));
             last.ToList().ForEach(v => Console.WriteLine($"last {v}"));
+        }
+
+        /// <summary>
+        /// First & Last : Get 1 value from the first / last
+        /// </summary>
+        static void First_Last()
+        {
+            IEnumerable<int> list = new List<int> { 1, 2, 3, 4, 5 };
+            var first = list.First();
+            var last = list.Last();
+            Console.WriteLine($"first {first}");
+            Console.WriteLine($"last {last}");
         }
 
         // ing
