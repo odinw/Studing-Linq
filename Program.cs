@@ -27,7 +27,8 @@ namespace Studing_Linq
             //Distinct();
             //TakeWhile();
             //First_Last();
-            ListRemove();
+            //ListRemove();
+            Sum();
         }
 
         /// <summary>
@@ -268,6 +269,21 @@ namespace Studing_Linq
             Console.WriteLine($"after count {list.Count()}");
         }
 
+        static void Sum()
+        {
+            List<Pay> list = new List<Pay>
+            {
+                new Pay ("Jason", 500),
+                new Pay ("Nick", 30),
+                new Pay ("Jason", 50),
+            };
+
+            var JasonPlay = list.Where(x => x.Name.Equals("Jason")).Sum(x => x.Money);
+            var TomPlay = list.Where(x => x.Name.Equals("Tom")).Sum(x => x.Money);
+            Console.WriteLine($"JasonPlay {JasonPlay}");
+            Console.WriteLine($"TomPlay {TomPlay}"); // if no match data, it will be 0.
+        }
+
         // ing
         static void DistinctClass()
         {
@@ -310,5 +326,15 @@ namespace Studing_Linq
             fruits.ToList().ForEach(item => Console.WriteLine(item));
         }
 
+        class Pay
+        {
+            public string Name;
+            public int Money;
+            public Pay(string name, int money)
+            {
+                Name = name;
+                Money = money;
+            }
+        }
     }
 }
