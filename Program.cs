@@ -26,7 +26,8 @@ namespace Studing_Linq
             //Fail_Where_Set();
             //Distinct();
             //TakeWhile();
-            First_Last();
+            //First_Last();
+            ListRemove();
         }
 
         /// <summary>
@@ -254,6 +255,17 @@ namespace Studing_Linq
             var last = list.Last();
             Console.WriteLine($"first {first}");
             Console.WriteLine($"last {last}");
+        }
+
+        /// <summary>
+        /// 移除符合條件的成員
+        /// </summary>
+        static void ListRemove()
+        {
+            List<int> list = new List<int> { 1, 2, 2, 5, 6 };
+            Console.WriteLine($"before count {list.Count()}");
+            list.RemoveAll(x => x == 2);
+            Console.WriteLine($"after count {list.Count()}");
         }
 
         // ing
