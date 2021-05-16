@@ -28,7 +28,8 @@ namespace Studing_Linq
             //TakeWhile();
             //First_Last();
             //ListRemove();
-            Sum();
+            //Sum();
+            Zip();
         }
 
         /// <summary>
@@ -282,6 +283,15 @@ namespace Studing_Linq
             var TomPlay = list.Where(x => x.Name.Equals("Tom")).Sum(x => x.Money);
             Console.WriteLine($"JasonPlay {JasonPlay}");
             Console.WriteLine($"TomPlay {TomPlay}"); // if no match data, it will be 0.
+        }
+
+        static void Zip()
+        {
+            IEnumerable<int> list1 = new List<int> { 1, 2, 3 };
+            IEnumerable<int> list2 = new List<int> { 1, 2, 3 };
+            IEnumerable<int> product = list1.Zip(list2, (l1, l2) => l1 * l2);
+            Console.WriteLine(nameof(Zip));
+            Console.WriteLine(JsonConvert.SerializeObject(product, Formatting.Indented));
         }
 
         // ing
