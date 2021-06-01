@@ -30,7 +30,8 @@ namespace Studing_Linq
             //ListRemove();
             //Sum();
             //Zip();
-            OrderBy();
+            //OrderBy();
+            OrderByTime();
         }
 
         /// <summary>
@@ -298,6 +299,21 @@ namespace Studing_Linq
         static void OrderBy()
         {
             IEnumerable<int> list = new int[] { 5, 1, 3, 8, 7};
+            Console.WriteLine(JsonConvert.SerializeObject(list));
+
+            list = list.OrderBy(v => v);
+            Console.WriteLine(JsonConvert.SerializeObject(list));
+        }
+
+        static void OrderByTime()
+        {
+            // less tick to more tick, that's mean older to newer
+            IEnumerable<DateTimeOffset> list = new DateTimeOffset[]
+            {
+                DateTimeOffset.UtcNow.AddDays(1),
+                DateTimeOffset.UtcNow.AddDays(-3),
+                DateTimeOffset.UtcNow
+            };
             Console.WriteLine(JsonConvert.SerializeObject(list));
 
             list = list.OrderBy(v => v);
