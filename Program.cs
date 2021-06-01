@@ -29,7 +29,8 @@ namespace Studing_Linq
             //First_Last();
             //ListRemove();
             //Sum();
-            Zip();
+            //Zip();
+            OrderBy();
         }
 
         /// <summary>
@@ -292,6 +293,15 @@ namespace Studing_Linq
             IEnumerable<int> product = list1.Zip(list2, (l1, l2) => l1 * l2);
             Console.WriteLine(nameof(Zip));
             Console.WriteLine(JsonConvert.SerializeObject(product, Formatting.Indented));
+        }
+
+        static void OrderBy()
+        {
+            IEnumerable<int> list = new int[] { 5, 1, 3, 8, 7};
+            Console.WriteLine(JsonConvert.SerializeObject(list));
+
+            list = list.OrderBy(v => v);
+            Console.WriteLine(JsonConvert.SerializeObject(list));
         }
 
         // ing
