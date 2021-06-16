@@ -31,7 +31,8 @@ namespace Studing_Linq
             //Sum();
             //Zip();
             //OrderBy();
-            OrderByTime();
+            //OrderByTime();
+            Where_Null();
         }
 
         /// <summary>
@@ -318,6 +319,16 @@ namespace Studing_Linq
 
             list = list.OrderBy(v => v);
             Console.WriteLine(JsonConvert.SerializeObject(list));
+        }
+
+        static void Where_Null()
+        {
+            IEnumerable<int> list = new int[] { 5, 1, 3, 8, 7 };
+            var result = list.Where(v => v == 10);
+
+            Console.WriteLine(result);
+            Console.WriteLine(result.Count());
+            Console.WriteLine(result.First()); // if result count == 0, Linq.First() will be error
         }
 
         // ing
