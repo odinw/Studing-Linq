@@ -32,7 +32,8 @@ namespace Studing_Linq
             //Zip();
             //OrderBy();
             //OrderByTime();
-            Where_Null();
+            //Where_Null();
+            NoMember_Contains();
         }
 
         /// <summary>
@@ -329,6 +330,17 @@ namespace Studing_Linq
             Console.WriteLine(result);
             Console.WriteLine(result.Count());
             Console.WriteLine(result.First()); // if result count == 0, Linq.First() will be error
+        }
+
+        static void NoMember_Contains()
+        {
+            IEnumerable<int> list = new int[] { 1, 2, 3, 4, 5 };
+            var result = list.Where(v => v == 10);
+            Console.WriteLine(result.Count());
+            Console.WriteLine(JsonConvert.SerializeObject(result));
+            
+            var boo = result.Contains(10);
+            Console.WriteLine(boo);
         }
 
         // ing
