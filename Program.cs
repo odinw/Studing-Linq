@@ -27,13 +27,14 @@ namespace Studing_Linq
             //Distinct();
             //TakeWhile();
             //First_Last();
-            //ListRemove();
+            //Last_NoMember();
+            TakeLast_NotEnough();
             //Sum();
             //Zip();
             //OrderBy();
             //OrderByTime();
             //Where_Null();
-            NoMember_Contains();
+            //NoMember_Contains();
         }
 
         /// <summary>
@@ -263,15 +264,20 @@ namespace Studing_Linq
             Console.WriteLine($"last {last}");
         }
 
-        /// <summary>
-        /// 移除符合條件的成員
-        /// </summary>
-        static void ListRemove()
+        static void Last_NoMember()
         {
-            List<int> list = new List<int> { 1, 2, 2, 5, 6 };
-            Console.WriteLine($"before count {list.Count()}");
-            list.RemoveAll(x => x == 2);
-            Console.WriteLine($"after count {list.Count()}");
+            List<int> list = new List<int>();
+            //var last = list.Last(); // exception
+            var last = list.LastOrDefault(); // got: 0
+            Console.WriteLine(last);
+        }
+
+        //it's ok, but maybe less than you want
+        static void TakeLast_NotEnough()
+        {
+            IEnumerable<int> list = new List<int> { 1, 2, 3};
+            var last = list.TakeLast(10);
+            Console.WriteLine(last.Count()); // 3
         }
 
         static void Sum()
