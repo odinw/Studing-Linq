@@ -28,7 +28,8 @@ namespace Studing_Linq
             //TakeWhile();
             //First_Last();
             //Last_NoMember();
-            TakeLast_NotEnough();
+            //TakeLast_NotEnough();
+            Append_DeepClone();
             //Sum();
             //Zip();
             //OrderBy();
@@ -278,6 +279,28 @@ namespace Studing_Linq
             IEnumerable<int> list = new List<int> { 1, 2, 3};
             var last = list.TakeLast(10);
             Console.WriteLine(last.Count()); // 3
+        }
+
+        static void Append_DeepClone()
+        {
+            var original = new List<int> { 1, 3, 5 };
+            Console.WriteLine("init:");
+            original.ForEach(m => Console.WriteLine($"original {m}"));
+
+            Console.WriteLine("original.Append(9) to get new variable:");
+            var copy = original.Append(9).ToList();
+            original.ForEach(m => Console.WriteLine($"original {m}"));
+            copy.ForEach(m => Console.WriteLine($"copy {m}"));
+
+            Console.WriteLine("original.Remove(3):");
+            original.Remove(3);
+            original.ForEach(m => Console.WriteLine($"original {m}"));
+            copy.ForEach(m => Console.WriteLine($"copy {m}"));
+
+            Console.WriteLine("copy.Add(7):");
+            copy.Add(7);
+            original.ForEach(m => Console.WriteLine($"original {m}"));
+            copy.ForEach(m => Console.WriteLine($"copy {m}"));
         }
 
         static void Sum()
